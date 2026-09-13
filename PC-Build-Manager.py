@@ -1,5 +1,6 @@
 import re
 import csv
+import json
 
 def name():
     valid_name = r"^\w{10}$"
@@ -67,6 +68,23 @@ def sign_up():
             "password" : user_password
         })
     print("Account created successfully!")
+
+def menu():
+    print("Choose your build purpose:")
+    print("1 - Work")
+    print("2 - Gaming")
+    print("3 - Both")
+    choice = input("Your Choice: ")
+    match choice:
+        case 1:
+            ...
+        case 2:
+            ...
+        case 3:
+            ...
+        case _:
+            ...
+
 
 
 def main():

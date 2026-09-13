@@ -1,0 +1,534 @@
+
+{
+  "gaming": {
+    "low": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 5 5600",
+          "socket": "AM4",
+          "ram_type": "DDR4",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-5-5600.html",
+          "fallback_price": 3850.0
+        },
+        {
+          "name": "Intel Core i3-14100F",
+          "socket": "LGA1700",
+          "ram_type": "DDR4",
+          "tdp": 60,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i3-14100f.html",
+          "fallback_price": 3100.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "ASUS Prime B550M-K",
+          "socket": "AM4",
+          "ram_type": "DDR4",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/asus-prime-b550m-k.html",
+          "fallback_price": 2900.0
+        },
+        {
+          "name": "MSI PRO H610M-E DDR4",
+          "socket": "LGA1700",
+          "ram_type": "DDR4",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/msi-pro-h610m-e-ddr4.html",
+          "fallback_price": 2600.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "AMD Radeon RX 7600 8GB",
+          "vram_gb": 8,
+          "tdp": 165,
+          "epey_url": "https://www.epey.com/ekran-karti/amd-radeon-rx-7600.html",
+          "fallback_price": 9800.0
+        },
+        {
+          "name": "NVIDIA GeForce RTX 4060 8GB",
+          "vram_gb": 8,
+          "tdp": 115,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-4060.html",
+          "fallback_price": 11500.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "DeepCool PK550D 550W 80+ Bronze",
+          "wattage": 550,
+          "efficiency_rating": "80+ Bronze",
+          "epey_url": "https://www.epey.com/power-supply-psu/deepcool-pk550d.html",
+          "fallback_price": 1600.0
+        }
+      ]
+    },
+    "mid": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 5 7600",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-5-7600.html",
+          "fallback_price": 6900.0
+        },
+        {
+          "name": "Intel Core i5-14400F",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i5-14400f.html",
+          "fallback_price": 7200.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "MSI PRO B650M-P",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/msi-pro-b650m-p.html",
+          "fallback_price": 4500.0
+        },
+        {
+          "name": "ASUS Prime B760M-K",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/asus-prime-b760m-k.html",
+          "fallback_price": 4200.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "AMD Radeon RX 7800 XT 16GB",
+          "vram_gb": 16,
+          "tdp": 263,
+          "epey_url": "https://www.epey.com/ekran-karti/amd-radeon-rx-7800-xt.html",
+          "fallback_price": 20500.0
+        },
+        {
+          "name": "NVIDIA GeForce RTX 4070 Super 12GB",
+          "vram_gb": 12,
+          "tdp": 220,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-4070-super.html",
+          "fallback_price": 24500.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "Corsair RM750e 750W 80+ Gold",
+          "wattage": 750,
+          "efficiency_rating": "80+ Gold",
+          "epey_url": "https://www.epey.com/power-supply-psu/corsair-rm750e.html",
+          "fallback_price": 3800.0
+        }
+      ]
+    },
+    "high": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 7 7800X3D",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "tdp": 120,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-7-7800x3d.html",
+          "fallback_price": 16500.0
+        },
+        {
+          "name": "Intel Core i7-14700K",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "tdp": 125,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i7-14700k.html",
+          "fallback_price": 15800.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "ASUS TUF Gaming B650-PLUS",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/asus-tuf-gaming-b650-plus.html",
+          "fallback_price": 7800.0
+        },
+        {
+          "name": "MSI MAG Z790 TOMAHAWK WIFI",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/msi-mag-z790-tomahawk-wifi.html",
+          "fallback_price": 9500.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "AMD Radeon RX 7900 XTX 24GB",
+          "vram_gb": 24,
+          "tdp": 355,
+          "epey_url": "https://www.epey.com/ekran-karti/amd-radeon-rx-7900-xtx.html",
+          "fallback_price": 38500.0
+        },
+        {
+          "name": "NVIDIA GeForce RTX 4080 Super 16GB",
+          "vram_gb": 16,
+          "tdp": 320,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-4080-super.html",
+          "fallback_price": 43000.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "FSP Hydro G Pro 850W 80+ Gold",
+          "wattage": 850,
+          "efficiency_rating": "80+ Gold",
+          "epey_url": "https://www.epey.com/power-supply-psu/fsp-hydro-g-pro-850w.html",
+          "fallback_price": 4900.0
+        }
+      ]
+    }
+  },
+  "work": {
+    "low": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 5 5600G",
+          "socket": "AM4",
+          "ram_type": "DDR4",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-5-5600g.html",
+          "fallback_price": 4100.0
+        },
+        {
+          "name": "Intel Core i5-12400",
+          "socket": "LGA1700",
+          "ram_type": "DDR4",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i5-12400.html",
+          "fallback_price": 4800.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "Gigabyte B550M DS3H",
+          "socket": "AM4",
+          "ram_type": "DDR4",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/gigabyte-b550m-ds3h.html",
+          "fallback_price": 3200.0
+        },
+        {
+          "name": "ASUS Prime H610M-K ARGB",
+          "socket": "LGA1700",
+          "ram_type": "DDR4",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/asus-prime-h610m-k-argb.html",
+          "fallback_price": 2700.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "NVIDIA GeForce RTX 3050 6GB",
+          "vram_gb": 6,
+          "tdp": 70,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-3050-6gb.html",
+          "fallback_price": 6800.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "Corsair CV550 550W 80+ Bronze",
+          "wattage": 550,
+          "efficiency_rating": "80+ Bronze",
+          "epey_url": "https://www.epey.com/power-supply-psu/corsair-cv550.html",
+          "fallback_price": 1750.0
+        }
+      ]
+    },
+    "mid": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 7 7700X",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "tdp": 105,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-7-7700x.html",
+          "fallback_price": 12200.0
+        },
+        {
+          "name": "Intel Core i7-13700F",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i7-13700f.html",
+          "fallback_price": 13100.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "MSI B650 GAMING PLUS WIFI",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/msi-b650-gaming-plus-wifi.html",
+          "fallback_price": 6800.0
+        },
+        {
+          "name": "Gigabyte B760 GAMING X DDR5",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/gigabyte-b760-gaming-x-ddr5.html",
+          "fallback_price": 6200.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "NVIDIA GeForce RTX 4060 Ti 16GB",
+          "vram_gb": 16,
+          "tdp": 165,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-4060-ti-16gb.html",
+          "fallback_price": 17800.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "DeepCool PK650D 650W 80+ Bronze",
+          "wattage": 650,
+          "efficiency_rating": "80+ Bronze",
+          "epey_url": "https://www.epey.com/power-supply-psu/deepcool-pk650d.html",
+          "fallback_price": 2200.0
+        }
+      ]
+    },
+    "high": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 9 7950X",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "tdp": 170,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-9-7950x.html",
+          "fallback_price": 21000.0
+        },
+        {
+          "name": "Intel Core i9-14900K",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "tdp": 125,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i9-14900k.html",
+          "fallback_price": 22500.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "ASUS ProArt X670E-CREATOR WIFI",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/asus-proart-x670e-creator-wifi.html",
+          "fallback_price": 18500.0
+        },
+        {
+          "name": "MSI PRO Z790-A MAX WIFI",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/msi-pro-z790-a-max-wifi.html",
+          "fallback_price": 10500.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "NVIDIA GeForce RTX 4090 24GB",
+          "vram_gb": 24,
+          "tdp": 450,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-4090.html",
+          "fallback_price": 76000.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "Corsair RM1000x 1000W 80+ Gold",
+          "wattage": 1000,
+          "efficiency_rating": "80+ Gold",
+          "epey_url": "https://www.epey.com/power-supply-psu/corsair-rm1000x.html",
+          "fallback_price": 7400.0
+        }
+      ]
+    }
+  },
+  "hybrid": {
+    "low": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 5 5600",
+          "socket": "AM4",
+          "ram_type": "DDR4",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-5-5600.html",
+          "fallback_price": 3850.0
+        },
+        {
+          "name": "Intel Core i5-12400F",
+          "socket": "LGA1700",
+          "ram_type": "DDR4",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i5-12400f.html",
+          "fallback_price": 4100.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "MSI B450M-A PRO MAX",
+          "socket": "AM4",
+          "ram_type": "DDR4",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/msi-b450m-a-pro-max.html",
+          "fallback_price": 2400.0
+        },
+        {
+          "name": "Gigabyte H610M H V2 DDR4",
+          "socket": "LGA1700",
+          "ram_type": "DDR4",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/gigabyte-h610m-h-v2-ddr4.html",
+          "fallback_price": 2550.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "NVIDIA GeForce RTX 3060 12GB",
+          "vram_gb": 12,
+          "tdp": 170,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-3060.html",
+          "fallback_price": 10200.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "DeepCool PK550D 550W 80+ Bronze",
+          "wattage": 550,
+          "efficiency_rating": "80+ Bronze",
+          "epey_url": "https://www.epey.com/power-supply-psu/deepcool-pk550d.html",
+          "fallback_price": 1600.0
+        }
+      ]
+    },
+    "mid": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 7 7700",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "tdp": 65,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-7-7700.html",
+          "fallback_price": 10500.0
+        },
+        {
+          "name": "Intel Core i5-14600K",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "tdp": 125,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i5-14600k.html",
+          "fallback_price": 11800.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "ASUS TUF Gaming B650M-E",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "form_factor": "mATX",
+          "epey_url": "https://www.epey.com/anakart/asus-tuf-gaming-b650m-e.html",
+          "fallback_price": 5600.0
+        },
+        {
+          "name": "MSI B760 GAMING PLUS WIFI",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/msi-b760-gaming-plus-wifi.html",
+          "fallback_price": 6100.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "NVIDIA GeForce RTX 4070 12GB",
+          "vram_gb": 12,
+          "tdp": 200,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-4070.html",
+          "fallback_price": 22000.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "MSI MAG A750GL 750W 80+ Gold",
+          "wattage": 750,
+          "efficiency_rating": "80+ Gold",
+          "epey_url": "https://www.epey.com/power-supply-psu/msi-mag-a750gl.html",
+          "fallback_price": 4100.0
+        }
+      ]
+    },
+    "high": {
+      "cpu": [
+        {
+          "name": "AMD Ryzen 9 7900X",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "tdp": 170,
+          "epey_url": "https://www.epey.com/islemci/amd-ryzen-9-7900x.html",
+          "fallback_price": 16900.0
+        },
+        {
+          "name": "Intel Core i7-14700K",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "tdp": 125,
+          "epey_url": "https://www.epey.com/islemci/intel-core-i7-14700k.html",
+          "fallback_price": 15800.0
+        }
+      ],
+      "motherboard": [
+        {
+          "name": "Gigabyte X670 AORUS ELITE AX",
+          "socket": "AM5",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/gigabyte-x670-aorus-elite-ax.html",
+          "fallback_price": 11200.0
+        },
+        {
+          "name": "ASUS ROG STRIX B760-F GAMING WIFI",
+          "socket": "LGA1700",
+          "ram_type": "DDR5",
+          "form_factor": "ATX",
+          "epey_url": "https://www.epey.com/anakart/asus-rog-strix-b760-f-gaming-wifi.html",
+          "fallback_price": 9900.0
+        }
+      ],
+      "gpu": [
+        {
+          "name": "NVIDIA GeForce RTX 4080 Super 16GB",
+          "vram_gb": 16,
+          "tdp": 320,
+          "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-4080-super.html",
+          "fallback_price": 43000.0
+        }
+      ],
+      "psu": [
+        {
+          "name": "be quiet! Pure Power 12 M 850W 80+ Gold",
+          "wattage": 850,
+          "efficiency_rating": "80+ Gold",
+          "epey_url": "https://www.epey.com/power-supply-psu/be-quiet-pure-power-12-m-850w.html",
+          "fallback_price": 5200.0
+        }
+      ]
+    }
+  }
+}
