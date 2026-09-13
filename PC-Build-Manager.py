@@ -70,7 +70,7 @@ def sign_up():
 
 
 def main():
-    print("Welcome the ...")
+    print("Welcome the PC Build Manager")
     print("1 for Sign in")
     print("2 for Sign up")
     choice = input("Your Choice: ")
