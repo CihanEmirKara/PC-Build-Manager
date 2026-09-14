@@ -1,6 +1,7 @@
 import re
 import csv
 import json
+import sys
 
 def name():
     valid_name = r"^\w{10}$"
@@ -34,8 +35,6 @@ def sign_in():
         print("Access Denied")
         return False
 
-
-
 def username_check(user_name):
 
     with open("users.csv", "r") as file:
@@ -44,8 +43,7 @@ def username_check(user_name):
             if row.get("user_name") == user_name:
                 return True 
     return False
-                
-    
+                    
 def sign_up():
     while True:
         user_name = name()
@@ -69,47 +67,59 @@ def sign_up():
         })
     print("Account created successfully!")
 
-def menu():
+def purpose():
     print("Choose your build purpose:")
     print("1 - Work")
     print("2 - Gaming")
-    print("3 - Both")
+    print("3 - Hybrit")
+    choice = input("Your Choice: ")
+    return choice
+
+def budget():
+    print("Select your budget type")
+    print("1 - Entry")
+    print("2 - Mid")
+    print("3 - High")
+    choice = input("Your Choice: ")
+    return choice
+
+
+def menu():
+    print("1 - New PC Build ")
+    print("2 - My Saved Builds")
+    print("3 - Log out")
     choice = input("Your Choice: ")
     match choice:
-        case 1:
+        case "1":
+            p = purpose()
+            b = budget()
+        case "2":
             ...
-        case 2:
-            ...
-        case 3:
-            ...
+        case "3":
+            sys.exit()
         case _:
             ...
 
 
 
+
+
+
 def main():
     print("Welcome the PC Build Manager")
-    print("1 for Sign in")
-    print("2 for Sign up")
+    print("1 - Sign in")
+    print("2 - Sign up")
     choice = input("Your Choice: ")
-    if choice == "2":
-        sign_up()
-    elif choice == "1":
-        if sign_in():
-            print("Redirecting...",end="")
-            print("\r...           ")
-
-
-
-
-
-
-
-
-    else:
-        main()
-
-
+    match choice:
+        case "1":
+            if sign_in():
+                print("Redirecting...",end="")
+                print("\r...           ")
+                menu()
+        case "2":
+            sign_up()
+        case _:
+            main()
 
 if __name__ == "__main__":
     main()
