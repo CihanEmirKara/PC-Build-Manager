@@ -1,7 +1,7 @@
 
 {
   "gaming": {
-    "low": {
+    "entry": {
       "cpu": [
         {
           "name": "AMD Ryzen 5 5600",
@@ -192,7 +192,7 @@
     }
   },
   "work": {
-    "low": {
+    "entry": {
       "cpu": [
         {
           "name": "AMD Ryzen 5 5600G",
@@ -362,7 +362,7 @@
     }
   },
   "hybrid": {
-    "low": {
+    "entry": {
       "cpu": [
         {
           "name": "AMD Ryzen 5 5600",
