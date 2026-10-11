@@ -3,6 +3,8 @@ import csv
 import json
 import sys
 import os
+import requests
+from bs4 import BeautifulSoup
 
 def clear():
     #print("\033[H\033[J", end="")
@@ -111,12 +113,7 @@ def get_components(purpose, budget):
         components = data.get(purpose, {}).get(budget, {})
         return components
 
-def cpu(components):
-    cpu_name = components["cpu"][0]["name"]
-    print(cpu_name)
-
 def select_components(t1, t2, components):
-
     order = ["cpu", "gpu", "motherboard", "psu"]
     selected_build = {}
 
@@ -125,16 +122,21 @@ def select_components(t1, t2, components):
             selected_build[comp_name] = display(t1, t2, components, comp_name)
 
     clear()
-    print(f"   {t2} ============= SELECTED BUILD ============ {t1}")
+    print("================ SELECTED BUILD ================")
+    total_price = 0
+
     for comp_name, item in selected_build.items():
-        price = item.get("fallback_price", "N/A")
-        print(f"{comp_name.upper():<12}: {item['name']} ({price} TL)")
+        
+        price = item.get("price", item.get("fallback_price", 0))
+        total_price += price
+        print(f"{comp_name.upper():<12}: {item['name']} ({price:,.2f} TL)")
+
+    print("------------------------------------------------")
+    print(f"TOTAL PRICE : {total_price:,.2f} TL")
     print("================================================")
     input("\nPress Enter to return to menu...")
 
     return selected_build
-
-
 
 def display(t1, t2, components, name):
     items = components.get(name, [])
@@ -147,19 +149,52 @@ def display(t1, t2, components, name):
 
         for idx, item in enumerate(items, 1):
             print(f"[{idx}] -------------------------")
+
+            current_price = get_epey_price(item.get("epey_url"), item.get("fallback_price"))
+            item["price"] = current_price
+
             for key, value in item.items():
-                if key in ["epey_url", "fallback_price"]:
+                if key in ["epey_url", "fallback_price", "price"]:
                     continue
                 print(f"{key}: {value}")
+
+            print(f"price: {current_price} TL")
 
         choice = input("\nYour Choice (1, 2...): ").strip()
         if choice.isdigit():
             index = int(choice) - 1
             if 0 <= index < len(items):
-                return items[index]
+                return items[index] 
 
         input("Invalid choice! Press Enter to try again...")
 
+def get_epey_price(url, fallback_price=None):
+    if not url:
+        return fallback_price
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+        "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
+    }
+
+    try:
+        response = requests.get(url, headers=headers, timeout=6)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, "html.parser")
+            
+            price_container = soup.find("span", class_="urun_fiyat") or soup.find("a", class_="urun_fiyat")
+            
+            target_text = price_container.get_text() if price_container else response.text
+
+            match = re.search(r"(?<!\d)((?:\d{1,3}(?:\.\d{3})+|\d+)(?:,\d{1,2})?)\s*(?:TL|₺)", target_text)
+            if match:
+                clean_number = match.group(1).replace(".", "").replace(",", ".")
+                return float(clean_number)
+
+    except Exception:
+        pass
+
+    return fallback_price
 
 def menu():
     print("1 - New PC Build ")
