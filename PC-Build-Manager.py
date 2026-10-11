@@ -2,6 +2,12 @@ import re
 import csv
 import json
 import sys
+import os
+
+def clear():
+    #print("\033[H\033[J", end="")
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def name():
     valid_name = r"^\w{10}$"
@@ -110,17 +116,18 @@ def cpu(components):
     print(cpu_name)
 
 
-def display(components,name):
-
+def display(t1,t2,components,name):
+    clear()
     for catagory, list1 in components.items():
-        #print("1")
+        
         if catagory == name:
-            print(f"    ---{catagory.upper()}---    ")
+            
+            print(f" {t2} --- {catagory.upper()} --- {t1} ")
             for type in list1:
-                #print("2")
-                print("----------")
+                
+                print("-------------------------")
                 for key,value in type.items():
-                    #print("3")
+                    
                     if key == "epey_url" or key =="fallback_price":
                         continue
                     print(f"{key}: {value}")
@@ -134,11 +141,12 @@ def menu():
     choice = input("Your Choice: ")
     match choice:
         case "1":
+            clear()
             p = purpose()
             b = budget()
             c = get_components(p,b)
             #cpu(c)
-            display(c,"cpu")
+            display(p,b,c,"gpu")
             #print(c)
 
         case "2":
