@@ -115,23 +115,50 @@ def cpu(components):
     cpu_name = components["cpu"][0]["name"]
     print(cpu_name)
 
+def select_components(t1, t2, components):
 
-def display(t1,t2,components,name):
+    order = ["cpu", "gpu", "motherboard", "psu"]
+    selected_build = {}
+
+    for comp_name in order:
+        if comp_name in components:
+            selected_build[comp_name] = display(t1, t2, components, comp_name)
+
     clear()
-    for catagory, list1 in components.items():
-        
-        if catagory == name:
-            
-            print(f" {t2} --- {catagory.upper()} --- {t1} ")
-            for type in list1:
-                
-                print("-------------------------")
-                for key,value in type.items():
-                    
-                    if key == "epey_url" or key =="fallback_price":
-                        continue
-                    print(f"{key}: {value}")
-        continue
+    print(f"   {t2} ============= SELECTED BUILD ============ {t1}")
+    for comp_name, item in selected_build.items():
+        price = item.get("fallback_price", "N/A")
+        print(f"{comp_name.upper():<12}: {item['name']} ({price} TL)")
+    print("================================================")
+    input("\nPress Enter to return to menu...")
+
+    return selected_build
+
+
+
+def display(t1, t2, components, name):
+    items = components.get(name, [])
+    if not items:
+        return None
+
+    while True:
+        clear()
+        print(f" {t2} --- {name.upper()} --- {t1} ")
+
+        for idx, item in enumerate(items, 1):
+            print(f"[{idx}] -------------------------")
+            for key, value in item.items():
+                if key in ["epey_url", "fallback_price"]:
+                    continue
+                print(f"{key}: {value}")
+
+        choice = input("\nYour Choice (1, 2...): ").strip()
+        if choice.isdigit():
+            index = int(choice) - 1
+            if 0 <= index < len(items):
+                return items[index]
+
+        input("Invalid choice! Press Enter to try again...")
 
 
 def menu():
@@ -145,9 +172,8 @@ def menu():
             p = purpose()
             b = budget()
             c = get_components(p,b)
-            #cpu(c)
-            display(p,b,c,"gpu")
-            #print(c)
+            my_build = select_components(p, b, c)
+
 
         case "2":
             ...
