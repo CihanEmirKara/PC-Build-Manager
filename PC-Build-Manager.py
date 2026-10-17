@@ -10,7 +10,6 @@ def clear():
     #print("\033[H\033[J", end="")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
 def name():
     valid_name = r"^\w{10}$"
     print("The username have 10 characters and not include space")
@@ -113,13 +112,26 @@ def get_components(purpose, budget):
         components = data.get(purpose, {}).get(budget, {})
         return components
 
+def check_components(comp_name, items, selected_build):
+    
+    if comp_name == "motherboard" and "cpu" in selected_build:
+        cpu_socket = selected_build["cpu"].get("socket")
+        compatible_mb = [] #mb = motherboard
+        for mb in items:
+            if mb.get("socket") == cpu_socket:
+                compatible_mb.append(mb)
+        return compatible_mb
+
+    return items
+
 def select_components(t1, t2, components):
     order = ["cpu", "gpu", "motherboard", "psu"]
     selected_build = {}
 
     for comp_name in order:
-        if comp_name in components:
-            selected_build[comp_name] = display(t1, t2, components, comp_name)
+        raw_items= components.get(comp_name, [])
+        compatible_items = check_components(comp_name, raw_items, selected_build)
+        selected_build[comp_name] = display(t1, t2, compatible_items, comp_name)
 
     clear()
     print("================ SELECTED BUILD ================")
@@ -138,9 +150,10 @@ def select_components(t1, t2, components):
 
     return selected_build
 
-def display(t1, t2, components, name):
-    items = components.get(name, [])
+def display(t1, t2, items, name):
+    
     if not items:
+        print("NONE")
         return None
 
     while True:
