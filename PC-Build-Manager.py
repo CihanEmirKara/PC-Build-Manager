@@ -113,21 +113,33 @@ def get_components(purpose, budget):
         return components
 
 def check_components(comp_name, items, selected_build):
-    
+
     if comp_name == "motherboard" and "cpu" in selected_build:
         cpu_socket = selected_build["cpu"].get("socket")
-        compatible_mb = [] #mb = motherboard
+        compatible_mb = [] #mb for motherboard
+
         for mb in items:
             if mb.get("socket") == cpu_socket:
                 compatible_mb.append(mb)
         return compatible_mb
+
+    if comp_name == "psu":
+        cpu_tdp = selected_build.get("cpu", {}).get("tdp", 0)
+        gpu_tdp = selected_build.get("gpu", {}).get("tdp", 0)
+        min_watt = (cpu_tdp + gpu_tdp + 50) * 1.30
+        compatible_psu = []
+
+        for psu in items:
+            if psu.get("wattage", 0) >= min_watt:
+                compatible_psu.append(psu)
+        return compatible_psu 
 
     return items
 
 def select_components(t1, t2, components):
     order = ["cpu", "gpu", "motherboard", "psu"]
     selected_build = {}
-
+    
     for comp_name in order:
         raw_items= components.get(comp_name, [])
         compatible_items = check_components(comp_name, raw_items, selected_build)
@@ -136,12 +148,13 @@ def select_components(t1, t2, components):
     clear()
     print("================ SELECTED BUILD ================")
     total_price = 0
-
     for comp_name, item in selected_build.items():
-        
-        price = item.get("price", item.get("fallback_price", 0))
-        total_price += price
-        print(f"{comp_name.upper():<12}: {item['name']} ({price:,.2f} TL)")
+        if not item:
+            print(f"{comp_name.upper():<12}:[!] No compatible {comp_name.upper()} found [!]")
+        else:
+            price = item.get("price", item.get("fallback_price", 0))
+            total_price += price
+            print(f"{comp_name.upper():<12}: {item['name']} ({price:,.2f} TL)")
 
     print("------------------------------------------------")
     print(f"TOTAL PRICE : {total_price:,.2f} TL")
@@ -153,7 +166,10 @@ def select_components(t1, t2, components):
 def display(t1, t2, items, name):
     
     if not items:
-        print("NONE")
+        clear()
+        print(f" {t2} --- {name.upper()} --- {t1} ")
+        print(f"\n[!] No compatible or sufficient {name.upper()} found for the selected hardware! [!]")
+        input("\nPress Enter to continue...")
         return None
 
     while True:
