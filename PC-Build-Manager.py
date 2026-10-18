@@ -38,7 +38,7 @@ def sign_in():
             p = row["password"]
             if u==user_name and p==user_password:
                 print("Access successfully")
-                return True
+                return user_name
         print("Access Denied")
         return False
 
@@ -136,7 +136,7 @@ def check_components(comp_name, items, selected_build):
 
     return items
 
-def select_components(t1, t2, components):
+def select_components(t1, t2, components,username):
     order = ["cpu", "gpu", "motherboard", "psu"]
     selected_build = {}
     
@@ -159,7 +159,19 @@ def select_components(t1, t2, components):
     print("------------------------------------------------")
     print(f"TOTAL PRICE : {total_price:,.2f} TL")
     print("================================================")
-    input("\nPress Enter to return to menu...")
+
+    save_choice = input("\nDo you want to save this build? (y/n): ").strip().lower()
+    if save_choice in ["y", "yes"]:
+        build_name = input("Enter a name for this build (e.g., Gaming Beast): ").strip()
+        build_note = input("Add an optional note for this build (Enter to skip): ").strip()
+        if not build_name:
+            build_name = f"{t1.capitalize()} {t2.capitalize()} Build"
+        if not build_note:
+            build_note = None
+
+        save_build(username, build_name, build_note, selected_build, total_price, t1, t2)
+    else:
+        input("\nPress Enter to return to menu...")
 
     return selected_build
 
@@ -225,7 +237,85 @@ def get_epey_price(url, fallback_price=None):
 
     return fallback_price
 
-def menu():
+def save_build(username, build_name, build_note, build_dict, total_price, purpose, budget):
+    filename = "saved_builds.json"
+    data = {}
+
+    if os.path.exists(filename) and os.path.getsize(filename) > 0:
+        try:
+            with open(filename, "r", encoding="utf-8") as file:
+                data = json.load(file)
+        except json.JSONDecodeError:
+            data = {}
+
+    if username not in data:
+        data[username] = []
+
+    new_entry = {
+        "build_name": build_name,
+        "purpose": purpose,
+        "budget": budget,
+        "total_price": total_price,
+        "build_note" : build_note,
+        "components": build_dict
+    }
+
+    data[username].append(new_entry)
+
+    with open(filename, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+
+    print(f"\n[+] Build '{build_name}' successfully saved!")
+    input("\nPress Enter to return to menu...")
+
+
+
+
+def show_saved_builds(username):
+    filename = "saved_builds.json"
+
+    if not os.path.exists(filename) or os.path.getsize(filename) == 0:
+        clear()
+        print("\n[!] No saved builds found yet.")
+        input("\nPress Enter to return to menu...")
+        return
+
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            data = json.load(file)
+    except json.JSONDecodeError:
+        data = {}
+
+    user_builds = data.get(username, [])
+
+    clear()
+    if not user_builds:
+        print(f"\n[!] No saved builds found for user '{username}'.")
+    else:
+        print(f"================ {username.upper()}'S SAVED BUILDS ================")
+        for idx, build in enumerate(user_builds, 1):
+            print(f"\n[{idx}] {build['build_name'].upper()} ({build['purpose'].capitalize()} - {build['budget'].capitalize()})")
+            print("------------------------------------------------")
+            
+            for comp_name, item in build["components"].items():
+                if item:
+                    price = item.get("price", item.get("fallback_price", 0))
+                    print(f"  {comp_name.upper():<12}: {item['name']} ({price:,.2f} TL)")
+                else:
+                    print(f"  {comp_name.upper():<12}: [Missing / Incompatible]")
+
+            print(f"  TOTAL PRICE : {build['total_price']:,.2f} TL")
+            
+            if build.get("build_note"):
+                print(f"  NOTE        : \"{build['build_note']}\"")
+                
+            print("------------------------------------------------")
+        print("==========================================================")
+
+    input("\nPress Enter to return to menu...")
+
+
+def menu(current_user):
     print("1 - New PC Build ")
     print("2 - My Saved Builds")
     print("3 - Log out")
@@ -233,23 +323,19 @@ def menu():
     match choice:
         case "1":
             clear()
+            u = current_user
             p = purpose()
             b = budget()
             c = get_components(p,b)
-            my_build = select_components(p, b, c)
+            my_build = select_components(p, b, c, u)
 
 
         case "2":
-            ...
+            show_saved_builds(current_user)
         case "3":
             sys.exit()
         case _:
             ...
-
-
-
-
-
 
 def main():
     print("Welcome the PC Build Manager")
@@ -258,15 +344,16 @@ def main():
     choice = input("Your Choice: ")
     match choice:
         case "1":
-            if sign_in():
+            current_user = sign_in()
+            if current_user:
                 print("Redirecting...",end="")
                 print("\r...           ")
-                #menu() TEMPORARLY INACTIVE
+                menu(current_user) #TEMPORARLY INACTIVE
         case "2":
             sign_up()
         #TEMPORARLY ACTIVE case 3
         case "3":
-            menu()
+            menu("Admin")
         case _:
             main()
 
