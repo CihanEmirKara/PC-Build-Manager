@@ -1,0 +1,145 @@
+{
+    "Admin": [
+        {
+            "build_name": "sample build",
+            "purpose": "work",
+            "budget": "entry",
+            "total_price": 32066.0,
+            "build_note": "sample note",
+            "components": {
+                "cpu": {
+                    "name": "AMD Ryzen 5 5600G",
+                    "socket": "AM4",
+                    "ram_type": "DDR4",
+                    "tdp": 65,
+                    "epey_url": "https://www.epey.com/islemci/amd-ryzen-5-5600g.html",
+                    "fallback_price": 4100.0,
+                    "price": 4100.0,
+                    "is_fallback": true
+                },
+                "gpu": {
+                    "name": "NVIDIA GeForce RTX 3050 6GB",
+                    "vram_gb": 6,
+                    "tdp": 70,
+                    "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-3050-6gb.html",
+                    "fallback_price": 6800.0,
+                    "price": 6800.0,
+                    "is_fallback": true
+                },
+                "motherboard": {
+                    "name": "Gigabyte B550M DS3H",
+                    "socket": "AM4",
+                    "ram_type": "DDR4",
+                    "form_factor": "mATX",
+                    "epey_url": "https://www.epey.com/anakart/gigabyte-b550m-ds3h.html",
+                    "fallback_price": 3200.0,
+                    "price": 19416.0,
+                    "is_fallback": false
+                },
+                "psu": {
+                    "name": "Corsair CV550 550W 80+ Bronze",
+                    "wattage": 550,
+                    "efficiency_rating": "80+ Bronze",
+                    "epey_url": "https://www.epey.com/power-supply-psu/corsair-cv550.html",
+                    "fallback_price": 1750.0,
+                    "price": 1750.0,
+                    "is_fallback": true
+                }
+            }
+        },
+        {
+            "build_name": "Gaming Beast",
+            "purpose": "gaming",
+            "budget": "high",
+            "total_price": 71972.72,
+            "build_note": "Best build i have ever seen",
+            "components": {
+                "cpu": {
+                    "name": "Intel Core i7-14700K",
+                    "socket": "LGA1700",
+                    "ram_type": "DDR5",
+                    "tdp": 125,
+                    "epey_url": "https://www.epey.com/islemci/intel-core-i7-14700k.html",
+                    "fallback_price": 15800.0,
+                    "price": 19428.0,
+                    "is_fallback": false
+                },
+                "gpu": {
+                    "name": "AMD Radeon RX 7900 XTX 24GB",
+                    "vram_gb": 24,
+                    "tdp": 355,
+                    "epey_url": "https://www.epey.com/ekran-karti/amd-radeon-rx-7900-xtx.html",
+                    "fallback_price": 38500.0,
+                    "price": 38500.0,
+                    "is_fallback": true
+                },
+                "motherboard": {
+                    "name": "MSI MAG Z790 TOMAHAWK WIFI",
+                    "socket": "LGA1700",
+                    "ram_type": "DDR5",
+                    "form_factor": "ATX",
+                    "epey_url": "https://www.epey.com/anakart/msi-mag-z790-tomahawk-wifi.html",
+                    "fallback_price": 9500.0,
+                    "price": 8909.4,
+                    "is_fallback": false
+                },
+                "psu": {
+                    "name": "FSP Hydro G Pro 850W 80+ Gold",
+                    "wattage": 850,
+                    "efficiency_rating": "80+ Gold",
+                    "epey_url": "https://www.epey.com/power-supply-psu/fsp-hydro-g-pro-850w.html",
+                    "fallback_price": 4900.0,
+                    "price": 5135.32,
+                    "is_fallback": false
+                }
+            }
+        },
+        {
+            "build_name": "sample",
+            "purpose": "work",
+            "budget": "entry",
+            "total_price": 32066.0,
+            "build_note": null,
+            "components": {
+                "cpu": {
+                    "name": "AMD Ryzen 5 5600G",
+                    "socket": "AM4",
+                    "ram_type": "DDR4",
+                    "tdp": 65,
+                    "epey_url": "https://www.epey.com/islemci/amd-ryzen-5-5600g.html",
+                    "fallback_price": 4100.0,
+                    "price": 4100.0,
+                    "is_fallback": true
+                },
+                "gpu": {
+                    "name": "NVIDIA GeForce RTX 3050 6GB",
+                    "vram_gb": 6,
+                    "tdp": 70,
+                    "epey_url": "https://www.epey.com/ekran-karti/nvidia-geforce-rtx-3050-6gb.html",
+                    "fallback_price": 6800.0,
+                    "price": 6800.0,
+                    "is_fallback": true
+                },
+                "motherboard": {
+                    "name": "Gigabyte B550M DS3H",
+                    "socket": "AM4",
+                    "ram_type": "DDR4",
+                    "form_factor": "mATX",
+                    "epey_url": "https://www.epey.com/anakart/gigabyte-b550m-ds3h.html",
+                    "fallback_price": 3200.0,
+                    "price": 19416.0,
+                    "is_fallback": false
+                },
+                "psu": {
+                    "name": "Corsair CV550 550W 80+ Bronze",
+                    "wattage": 550,
+                    "efficiency_rating": "80+ Bronze",
+                    "epey_url": "https://www.epey.com/power-supply-psu/corsair-cv550.html",
+                    "fallback_price": 1750.0,
+                    "price": 1750.0,
+                    "is_fallback": true
+                }
+            }
+        }
+    ]
+}
