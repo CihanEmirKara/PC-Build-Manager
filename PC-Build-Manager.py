@@ -3,8 +3,13 @@ import csv
 import json
 import sys
 import os
+import time
 import requests
 from bs4 import BeautifulSoup
+
+# ANSI Color Codes
+YELLOW = "\033[93m"
+RESET = "\033[0m"
 
 def clear():
     #print("\033[H\033[J", end="")
@@ -12,7 +17,7 @@ def clear():
 
 def name():
     valid_name = r"^\w{10}$"
-    print("The username have 10 characters and not include space")
+    print("Username must be exactly 10 characters long with no spaces.")
     n = input("Username: ")
     if re.search(valid_name, n):
         return n
@@ -21,7 +26,7 @@ def name():
 
 def password():
     valid_password = r"^\d{6}$"
-    print("The password only have 6 digit number")
+    print("Password must be a 6-digit number.")
     p = input("Password: ")
     if re.search(valid_password, p):
         return p
@@ -37,7 +42,7 @@ def sign_in():
             u = row["user_name"]
             p = row["password"]
             if u==user_name and p==user_password:
-                print("Access successfully")
+                print("Access Granted")
                 return user_name
         print("Access Denied")
         return False
@@ -76,35 +81,45 @@ def sign_up():
 
 def purpose():
     options = {
-        "1":"work",
-        "2":"gaming",
-        "3":"hybrid"
+        "1": "work",
+        "2": "gaming",
+        "3": "hybrid"
     }
     while True:
-        print("Choose your build purpose:")
+        clear()
+        print("=== BUILD PURPOSE ===")
+        print("---------------------")
         print("1 - Work")
         print("2 - Gaming")
         print("3 - Hybrid")
-        choice = input("Your Choice: ").strip()
+        print("---------------------")
+        
+        choice = input("Your Choice (1-3): ").strip()
         if choice in options:
             return options[choice]
-        print("!!Invalid choice!!")
+            
+        input("\n[!] Invalid choice! Press Enter to try again...")
 
 def budget():
     options = {
-        "1":"entry",
-        "2":"mid",
-        "3":"high"
+        "1": "entry",
+        "2": "mid",
+        "3": "high"
     }
     while True:
-        print("Select your budget type")
+        clear()
+        print("=== BUDGET TIER ===")
+        print("-------------------")
         print("1 - Entry")
         print("2 - Mid")
         print("3 - High")
-        choice = input("Your Choice: ").strip()
+        print("-------------------")
+        
+        choice = input("Your Choice (1-3): ").strip()
         if choice in options:
             return options[choice]
-        print("!!Invalid choice!!")
+            
+        input("\n[!] Invalid choice! Press Enter to try again...")
 
 def get_components(purpose, budget):
     with open("components.json", "r") as file:
@@ -150,11 +165,14 @@ def select_components(t1, t2, components,username):
     total_price = 0
     for comp_name, item in selected_build.items():
         if not item:
-            print(f"{comp_name.upper():<12}:[!] No compatible {comp_name.upper()} found [!]")
+            print(f"{comp_name.upper():<12}: [!] No compatible {comp_name.upper()} found [!]")
         else:
             price = item.get("price", item.get("fallback_price", 0))
             total_price += price
-            print(f"{comp_name.upper():<12}: {item['name']} ({price:,.2f} TL)")
+            if item.get("is_fallback"):
+                print(f"{comp_name.upper():<12}: {item['name']} ({YELLOW}{price:,.2f} TL - Live price unavailable{RESET})")
+            else:
+                print(f"{comp_name.upper():<12}: {item['name']} ({price:,.2f} TL)")
 
     print("------------------------------------------------")
     print(f"TOTAL PRICE : {total_price:,.2f} TL")
@@ -191,15 +209,24 @@ def display(t1, t2, items, name):
         for idx, item in enumerate(items, 1):
             print(f"[{idx}] -------------------------")
 
-            current_price = get_epey_price(item.get("epey_url"), item.get("fallback_price"))
-            item["price"] = current_price
+            live_price = get_epey_price(item.get("epey_url"))
+
+            if live_price is not None:
+                item["price"] = live_price
+                item["is_fallback"] = False
+            else:
+                item["price"] = item.get("fallback_price", 0)
+                item["is_fallback"] = True
 
             for key, value in item.items():
-                if key in ["epey_url", "fallback_price", "price"]:
+                if key in ["epey_url", "fallback_price", "price", "is_fallback"]:
                     continue
                 print(f"{key}: {value}")
 
-            print(f"price: {current_price} TL")
+            if item["is_fallback"]:
+                print(f"price: {YELLOW}{item['price']:,.2f} TL (Estimated - Live price unavailable){RESET}")
+            else:
+                print(f"price: {item['price']:,.2f} TL")
 
         choice = input("\nYour Choice (1, 2...): ").strip()
         if choice.isdigit():
@@ -209,9 +236,9 @@ def display(t1, t2, items, name):
 
         input("Invalid choice! Press Enter to try again...")
 
-def get_epey_price(url, fallback_price=None):
+def get_epey_price(url):
     if not url:
-        return fallback_price
+        return None
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
@@ -235,7 +262,7 @@ def get_epey_price(url, fallback_price=None):
     except Exception:
         pass
 
-    return fallback_price
+    return None
 
 def save_build(username, build_name, build_note, build_dict, total_price, purpose, budget):
     filename = "saved_builds.json"
@@ -267,9 +294,6 @@ def save_build(username, build_name, build_note, build_dict, total_price, purpos
 
     print(f"\n[+] Build '{build_name}' successfully saved!")
     input("\nPress Enter to return to menu...")
-
-
-
 
 def show_saved_builds(username):
     filename = "saved_builds.json"
@@ -314,48 +338,74 @@ def show_saved_builds(username):
 
     input("\nPress Enter to return to menu...")
 
+    # TODO: Future Enhancement
+    # Query get_epey_price(item['epey_url']) compare to current vs saved price
+    # and display the percentage difference: (old_price -> current_price (+X%)).
 
 def menu(current_user):
-    print("1 - New PC Build ")
-    print("2 - My Saved Builds")
-    print("3 - Log out")
-    choice = input("Your Choice: ")
-    match choice:
-        case "1":
-            clear()
-            u = current_user
-            p = purpose()
-            b = budget()
-            c = get_components(p,b)
-            my_build = select_components(p, b, c, u)
-
-
-        case "2":
-            show_saved_builds(current_user)
-        case "3":
-            sys.exit()
-        case _:
-            ...
+    while True:
+        clear()
+        print(f"=== PC BUILD MANAGER | User: {current_user} ===")
+        print("------------------------------------------------")
+        print("1 - New PC Build")
+        print("2 - My Saved Builds")
+        print("3 - Log Out")
+        print("------------------------------------------------")
+        
+        choice = input("Your Choice (1-3): ").strip()
+        
+        match choice:
+            case "1":
+                clear()
+                p = purpose()
+                b = budget()
+                c = get_components(p, b)
+                my_build = select_components(p, b, c, current_user)
+            case "2":
+                clear()
+                show_saved_builds(current_user)
+            case "3":
+                clear()
+                print(f"Logging out {current_user}...")
+                time.sleep(1)
+                break
+            case _:
+                input("\n[!] Invalid choice! Press Enter to try again...")
 
 def main():
-    print("Welcome the PC Build Manager")
-    print("1 - Sign in")
-    print("2 - Sign up")
-    choice = input("Your Choice: ")
-    match choice:
-        case "1":
-            current_user = sign_in()
-            if current_user:
-                print("Redirecting...",end="")
-                print("\r...           ")
-                menu(current_user) #TEMPORARLY INACTIVE
-        case "2":
-            sign_up()
-        #TEMPORARLY ACTIVE case 3
-        case "3":
-            menu("Admin")
-        case _:
-            main()
+    while True:
+        clear()
+        print("=== PC BUILD MANAGER ===")
+        print("------------------------")        
+        print("1 - Sign In")
+        print("2 - Sign Up")
+        print("3 - Exit")
+        print("------------------------")
+        
+        choice = input("Your Choice (1-3): ").strip()
+        
+        match choice:
+            case "1":
+                clear()
+                current_user = sign_in()
+                if current_user:
+                    print(f"\nWelcome back, {current_user}! Redirecting...")
+                    time.sleep(1.5)
+                    menu(current_user)
+                else:
+                    input("\nPress Enter to try again...")
+            case "2":
+                clear()
+                sign_up()
+                input("\nPress Enter to return to main menu...")
 
+            #TEMPORARLY INACTIVE CASE 3.
+            case "3":
+                clear()
+                print("Thank you for using PC Build Manager. Goodbye!")
+                menu("Admin")
+                #sys.exit()
+            case _:
+                input("\n[!] Invalid choice! Press Enter to try again...")
 if __name__ == "__main__":
     main()
