@@ -4,7 +4,8 @@ import json
 import sys
 import os
 import time
-import requests
+import random
+from curl_cffi import requests
 from bs4 import BeautifulSoup
 
 # ANSI Color Codes
@@ -194,7 +195,6 @@ def select_components(t1, t2, components,username):
     return selected_build
 
 def display(t1, t2, items, name):
-    
     if not items:
         clear()
         print(f" {t2} --- {name.upper()} --- {t1} ")
@@ -202,27 +202,27 @@ def display(t1, t2, items, name):
         input("\nPress Enter to continue...")
         return None
 
+    print(f"\nFetching live prices for {name.upper()}...")
+    for idx, item in enumerate(items):
+        live_price = get_epey_price(item.get("epey_url"))
+        if live_price is not None:
+            item["price"] = live_price
+            item["is_fallback"] = False
+        else:
+            item["price"] = item.get("fallback_price", 0)
+            item["is_fallback"] = True
+        if idx < len(items) - 1:
+            time.sleep(random.uniform(0.4, 0.8))
+
     while True:
         clear()
         print(f" {t2} --- {name.upper()} --- {t1} ")
-
         for idx, item in enumerate(items, 1):
             print(f"[{idx}] -------------------------")
-
-            live_price = get_epey_price(item.get("epey_url"))
-
-            if live_price is not None:
-                item["price"] = live_price
-                item["is_fallback"] = False
-            else:
-                item["price"] = item.get("fallback_price", 0)
-                item["is_fallback"] = True
-
             for key, value in item.items():
                 if key in ["epey_url", "fallback_price", "price", "is_fallback"]:
                     continue
                 print(f"{key}: {value}")
-
             if item["is_fallback"]:
                 print(f"price: {YELLOW}{item['price']:,.2f} TL (Estimated - Live price unavailable){RESET}")
             else:
@@ -232,36 +232,40 @@ def display(t1, t2, items, name):
         if choice.isdigit():
             index = int(choice) - 1
             if 0 <= index < len(items):
-                return items[index] 
-
+                return items[index]
         input("Invalid choice! Press Enter to try again...")
 
 def get_epey_price(url):
     if not url:
         return None
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
-    }
-
     try:
-        response = requests.get(url, headers=headers, timeout=6)
+        response = requests.get(url, impersonate="chrome", timeout=10)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
-            
+
+            for script in soup.find_all("script", type="application/ld+json"):
+                try:
+                    ld_data = json.loads(script.string or "")
+                    entries = ld_data if isinstance(ld_data, list) else [ld_data]
+                    for entry in entries:
+                        if isinstance(entry, dict) and entry.get("@type") == "Product":
+                            offers = entry.get("offers")
+                            if isinstance(offers, dict):
+                                raw_price = offers.get("lowPrice") or offers.get("price")
+                                if raw_price is not None and float(raw_price) > 0:
+                                    return float(raw_price)
+                except (ValueError, TypeError, json.JSONDecodeError):
+                    continue
+
             price_container = soup.find("span", class_="urun_fiyat") or soup.find("a", class_="urun_fiyat")
-            
-            target_text = price_container.get_text() if price_container else response.text
-
-            match = re.search(r"(?<!\d)((?:\d{1,3}(?:\.\d{3})+|\d+)(?:,\d{1,2})?)\s*(?:TL|₺)", target_text)
-            if match:
-                clean_number = match.group(1).replace(".", "").replace(",", ".")
-                return float(clean_number)
-
+            if price_container:
+                target_text = price_container.get_text(" ", strip=True)
+                match = re.search(r"(?<!\d)((?:\d{1,3}(?:\.\d{3})+|\d+)(?:,\d{1,2})?)\s*TL", target_text)
+                if match:
+                    clean_number = match.group(1).replace(".", "").replace(",", ".")
+                    return float(clean_number)
     except Exception:
         pass
-
     return None
 
 def save_build(username, build_name, build_note, build_dict, total_price, purpose, budget):
