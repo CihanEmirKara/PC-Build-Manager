@@ -243,11 +243,11 @@
       ],
       "psu": [
         {
-          "name": "FSP Hydro G Pro 850W 80+ Gold",
+          "name": "FSP Vita GM 850W",
           "wattage": 850,
           "efficiency_rating": "80+ Gold",
-          "epey_url": "https://www.epey.com/power-supply-psu/fsp-hydro-g-pro-850w.html",
-          "fallback_price": 5135.0
+          "epey_url": "https://www.epey.com/power-supply-psu/fsp-vita-gm-850w.html",
+          "fallback_price": 7600.0
         },
         {
           "name": "MSI MAG A850GL PCIE5 850W 80+ Gold",
@@ -503,11 +503,11 @@
       ],
       "psu": [
         {
-          "name": "FSP Hydro G Pro 850W 80+ Gold",
+          "name": "FSP Vita GM 850W",
           "wattage": 850,
           "efficiency_rating": "80+ Gold",
-          "epey_url": "https://www.epey.com/power-supply-psu/fsp-hydro-g-pro-850w.html",
-          "fallback_price": 5135.0
+          "epey_url": "https://www.epey.com/power-supply-psu/fsp-vita-gm-850w.html",
+          "fallback_price": 7600.0
         },
         {
           "name": "MSI MAG A850GL PCIE5 850W 80+ Gold",
@@ -684,11 +684,11 @@
           "fallback_price": 5450.0
         },
         {
-          "name": "FSP Hydro G Pro 850W 80+ Gold",
+          "name": "FSP Vita GM 850W",
           "wattage": 850,
           "efficiency_rating": "80+ Gold",
-          "epey_url": "https://www.epey.com/power-supply-psu/fsp-hydro-g-pro-850w.html",
-          "fallback_price": 5135.0
+          "epey_url": "https://www.epey.com/power-supply-psu/fsp-vita-gm-850w.html",
+          "fallback_price": 7600.0
         }
       ]
     },
@@ -763,11 +763,11 @@
       ],
       "psu": [
         {
-          "name": "FSP Hydro G Pro 850W 80+ Gold",
+          "name": "FSP Vita GM 850W",
           "wattage": 850,
           "efficiency_rating": "80+ Gold",
-          "epey_url": "https://www.epey.com/power-supply-psu/fsp-hydro-g-pro-850w.html",
-          "fallback_price": 5135.0
+          "epey_url": "https://www.epey.com/power-supply-psu/fsp-vita-gm-850w.html",
+          "fallback_price": 7600.0
         },
         {
           "name": "MSI MAG A850GL PCIE5 850W 80+ Gold",
